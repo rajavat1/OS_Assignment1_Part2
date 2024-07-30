@@ -605,7 +605,7 @@ $(document).ready(function () {
 		);
 		algorithm = $(this).attr("calcStyle");
 
-		if (algorithm == "roundRobin") {
+		if (algorithm == "Round Robin") {
 			$("#solver_group").removeClass("hidden");
 		} else {
 			$("#solver_group").addClass("hidden");
