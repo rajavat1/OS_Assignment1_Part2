@@ -23,9 +23,14 @@ var processTotal;
 var Selectedalgorithm;
 var tq;
 
+
 $(document).ready(function () {
 
-	
+	$('#explanation-equation').hide();
+
+
+
+	$(".priority").collapse({ toggle: false });
 	var algorithm = "roundRobin";
 
 	//used to keep track of how long the CPU has been running as opposed to idle
@@ -100,12 +105,14 @@ $(document).ready(function () {
 		return done;
 	}
 
+
 	//inserts idle time if no process is ready to go yet
 	function fillGaps() {
 		for (var i = 0; i < processArray.length; i++) {
 			if (processArray[i].done == false) {
 				if (processArray[i].arrivalTime > position) {
 					bar.addItem("idle", processArray[i].arrivalTime - position);
+
 				}
 				break;
 			}
@@ -126,7 +133,8 @@ $(document).ready(function () {
 				this.indexes[this.indexes.length - 1] += progressLength;
 				this.sum += progressLength;
 				position += progressLength;
-			} else {
+			} 
+			else {
 				if (
 					(previousName != "idle" &&
 						previousName != "context switch" &&
@@ -170,7 +178,7 @@ $(document).ready(function () {
 
 			// console.log("sum:"+this.sum+"   "+runningTime);
 
-			var utilization = 100 - ((this.sum - runningTime) / this.sum) * 100;
+			var utilization = 100 - (((this.sum - runningTime) / this.sum) * 100);
 			utilization = Math.round(utilization * 100) / 100;
 
 			sortNames();
@@ -207,8 +215,7 @@ $(document).ready(function () {
 			var averageWait = waitSum / processArray.length;
 			averageWait = Math.round(averageWait * 10000) / 10000;
 
-			fullExplanation +=
-				"}{" + processArray.length + "} $</span> $ = " + averageWait + " $";
+			fullExplanation += "}{" + processArray.length + "} $</span> $ = " + averageWait + " $";
 
 			//set the equation text
 			$("#explanation-equation").html(fullExplanation);
@@ -241,13 +248,19 @@ $(document).ready(function () {
 	//sorts the processArray in terms of arrival times
 	function sortArriveTimes() {
 		function compareArrivals(process1, process2) {
+
 			if (process1.arrivalTime > process2.arrivalTime) {
 				return 1;
-			} else if (process1.arrivalTime < process2.arrivalTime) {
+			} 
+			
+			else if (process1.arrivalTime < process2.arrivalTime) {
 				return -1;
-			} else {
+			} 
+			
+			else {
 				return 0;
 			}
+		
 		}
 
 		processArray.sort(compareArrivals);
@@ -605,7 +618,7 @@ $(document).ready(function () {
 		);
 		algorithm = $(this).attr("calcStyle");
 
-		if (algorithm == "roundRobin") {
+		if (algorithm == "Round Robin") {
 			$("#solver_group").removeClass("hidden");
 		} else {
 			$("#solver_group").addClass("hidden");
